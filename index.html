@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chitra | Home Page</title>
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #0b0f1a;
+        --card: rgba(255, 255, 255, 0.08);
+        --accent: #786af0;
+        --text: #ffffff;
+        --muted: #a1a1aa;
+        --buy: #22c55e;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100svh;
+        background: radial-gradient(circle at top, #1a1f3c, var(--bg));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Inter, system-ui, sans-serif;
+        color: var(--text);
+        padding: 12px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 420px;
+        padding: 28px 20px;
+        background: var(--card);
+        border-radius: 20px;
+        backdrop-filter: blur(14px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        animation: fadeUp 0.6s ease;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .profile {
+        width: 104px;
+        height: 104px;
+        border-radius: 50%;
+        border: 3px solid var(--accent);
+        object-fit: cover;
+        margin-bottom: 14px;
+        animation: float 4s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+      .username {
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+      .bio {
+        font-size: 13px;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .links.grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 22px;
+      }
+
+      .links.grid a {
+        padding: 13px 10px;
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 14px;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+
+      .links.grid a:active {
+        transform: scale(0.97);
+      }
+
+      .links.grid a:hover {
+        background: var(--accent);
+      }
+
+      .section {
+        color: var(--accent);
+        margin-bottom: 10px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .affiliate-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .affiliate-card {
+        display: grid;
+        grid-template-columns: 64px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.12);
+        padding: 12px;
+        border-radius: 16px;
+        text-decoration: none;
+        color: var(--text);
+      }
+
+      .affiliate-card img {
+        width: 64px;
+        height: 64px;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+
+      .affiliate-content strong {
+        display: block;
+        font-size: 14px;
+      }
+
+      .affiliate-content .about {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .affiliate-content .price {
+        font-size: 12px;
+        font-weight: 600;
+        color: #a7f3d0;
+      }
+
+      .buy-btn {
+        background: linear-gradient(135deg, var(--buy), #16a34a);
+        color: #022c22;
+        padding: 8px 14px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      footer {
+        margin-top: 18px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      /* ===== KITTIES ===== */
+      .kitty {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        z-index: 999;
+        cursor: pointer;
+        animation: kittyIdle 5s ease-in-out infinite;
+      }
+
+      @keyframes kittyIdle {
+        0% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(8px, -8px);
+        }
+        100% {
+          transform: translate(0, 0);
+        }
+      }
+
+      .hide {
+        animation: kittyPop 0.22s ease forwards;
+      }
+      .show {
+        animation: kittyAppear 0.22s ease forwards;
+      }
+
+      @keyframes kittyPop {
+        to {
+          transform: scale(0);
+          opacity: 0;
+        }
+      }
+      @keyframes kittyAppear {
+        from {
+          transform: scale(0);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      /* Reduce motion preference */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <img src="cat1.gif" class="kitty" />
+    <img src="cat2.gif" class="kitty" />
+    <img src="cat2.gif" class="kitty" />
+    <img src="cat3.gif" class="kitty" />
+    <img src="cat3.gif" class="kitty" />
+    <img src="cat4.gif" class="kitty" />
+    <img src="cat6.gif" class="kitty" />
+    
+    <div class="card" id="safe-zone">
+      <img src="profile.jpg" class="profile" />
+      <h1>Chitra</h1>
+      <div class="username">@0xchitra</div>
+      <div class="bio">
+        Learning AI/ML from open source<br> • <br>Coding until 50LPA becomes reality
+      </div>
+      
+      <div class="links grid">
+        <a href="https://www.youtube.com/@0xchitra" target="_blank"
+          ><i class="fab fa-youtube"></i> YouTube</a
+          >
+          <a href="https://www.instagram.com/0xchitra/" target="_blank"
+          ><i class="fab fa-instagram"></i> Instagram</a
+          >
+          <a href="https://x.com/0xchitra" target="_blank"
+          ><i class="fab fa-x-twitter"></i> X.com</a
+          >
+          <a href="https://www.linkedin.com/in/chittaranjanbora/" target="_blank"
+          ><i class="fab fa-linkedin"></i> LinkedIn</a
+          >
+          <a href="https://github.com/0xchitra" target="_blank"
+          ><i class="fab fa-github"></i> GitHub</a
+          >
+        <a href="https://www.threads.com/@0xchitra" target="_blank"
+        ><i class="fab fa-threads"></i> Threads</a
+          >
+        </div>
+        
+        <h3 class="section">Products I recommend</h3>
+        <div class="affiliate-list">
+          <a href="https://amzn.to/3NbveWj" target="_blank" class="affiliate-card">
+            <img src="konex.jpg" />
+            <div class="affiliate-content">
+              <strong>Badminton Racquets</strong>
+              <div class="about">Konex Aluminium Racquets</div>
+              <div class="price">₹599</div>
+            </div>
+            <div class="buy-btn">Buy</div>
+          </a>
+          <a href="https://amzn.to/4psOagw" target="_blank" class="affiliate-card">
+            <img src="yonex.jpg" />
+            <div class="affiliate-content">
+              <strong>Badminton Racquets</strong>
+              <div class="about">Yonex Aluminium Racquets</div>
+              <div class="price">₹1250</div>
+            </div>
+            <div class="buy-btn">Buy</div>
+          </a>
+          <a href="https://amzn.to/49bgHm1" target="_blank" class="affiliate-card">
+            <img src="a158.jpg" />
+            <div class="affiliate-content">
+              <strong>Casio A158</strong>
+              <div class="about">Casio A158</div>
+            <div class="price">₹1,899</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/49saMHU" target="_blank" class="affiliate-card">
+          <img src="a168.jpg" />
+          <div class="affiliate-content">
+            <strong>Casio A168</strong>
+            <div class="about">Casio A168WA Brown</div>
+            <div class="price">₹2,999</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/3NcQDhI" target="_blank" class="affiliate-card">
+          <img src="fur.jpg" />
+          <div class="affiliate-content">
+            <strong>40L Backpack</strong>
+            <div class="about">Fur Jaden Travel Backpack</div>
+            <div class="price">₹999</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/4qJvOce" target="_blank" class="affiliate-card">
+          <img src="tom.jpg" />
+          <div class="affiliate-content">
+            <strong>21L Backpack</strong>
+            <div class="about">Tommy Hilfiger Backpack</div>
+            <div class="price">₹1,599</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/4psDIWc" target="_blank" class="affiliate-card">
+          <img src="levi.jpg" />
+          <div class="affiliate-content">
+            <strong>24L Backpack</strong>
+            <div class="about">Levis Backpack</div>
+            <div class="price">₹1,499</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/4541DEi" target="_blank" class="affiliate-card">
+          <img src="con.jpg" />
+          <div class="affiliate-content">
+            <strong>Converse Sneakers</strong>
+            <div class="about">Converse Mid Top Black sneakers</div>
+            <div class="price">₹4,500</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/45IF0W2" target="_blank" class="affiliate-card">
+          <img src="key.jpg" />
+          <div class="affiliate-content">
+            <strong>75% Mechanical Keyboard</strong>
+            <div class="about">F87 Wireless Mechanical Keyboard</div>
+            <div class="price">₹5,499</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/4sriHhH" target="_blank" class="affiliate-card">
+          <img src="mag.jpg" />
+          <div class="affiliate-content">
+            <strong>Magsafe Powerbank</strong>
+            <div class="about">compact & support wireless charging</div>
+            <div class="price">₹1,499</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/450bH19" target="_blank" class="affiliate-card">
+          <img src="20.jpg" />
+          <div class="affiliate-content">
+            <strong>20,000 mAh Powerbank</strong>
+            <div class="about">Why I use it</div>
+            <div class="price">₹2,099</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/4qcUVo4" target="_blank" class="affiliate-card">
+          <img src="air.jpg" />
+          <div class="affiliate-content">
+            <strong>Best Laptop Under 1L</strong>
+            <div class="about">Macbook Air M4</div>
+            <div class="price">90,000</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/3Yxu7Td" target="_blank" class="affiliate-card">
+          <img src="san.jpg" />
+          <div class="affiliate-content">
+            <strong>Portable SSD</strong>
+            <div class="about">Sandisk 1TB SSD</div>
+            <div class="price">₹11,500</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/4qHWU3k" target="_blank" class="affiliate-card">
+          <img src="xia.jpg" />
+          <div class="affiliate-content">
+            <strong>Best Tab Under ₹30k </strong>
+            <div class="about">Xiaomi Pad 7</div>
+            <div class="price">Go with your eyes closed</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/4qJC2sK" target="_blank" class="affiliate-card">
+          <img src="ipad.jpg" />
+          <div class="affiliate-content">
+            <strong>Best Tab around ₹30k</strong>
+            <div class="about">iPad 11</div>
+            <div class="price">Go with your eyes closed</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/3Yq6YlH" target="_blank" class="affiliate-card">
+          <img src="xm.jpg" />
+          <div class="affiliate-content">
+            <strong>Sony xm4</strong>
+            <div class="about">Sony WH-1000XM4</div>
+            <div class="price">₹22,999</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/49dOfA1" target="_blank" class="affiliate-card">
+          <img src="xm.jpg" />
+          <div class="affiliate-content">
+            <strong>Sony xm5</strong>
+            <div class="about">Sony WH-1000XM5</div>
+            <div class="price">₹29,999</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        
+        <a href="https://amzn.to/3Na4WDM" target="_blank" class="affiliate-card">
+          <img src="s24.jpg" />
+          <div class="affiliate-content">
+            <strong>Samsung Galaxy S24</strong>
+            <div class="about">Samsung Galaxy S24</div>
+            <div class="price">₹39,999</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/4bnWYAQ" target="_blank" class="affiliate-card">
+          <img src="16.jpg" />
+          <div class="affiliate-content">
+            <strong>iPhone 16</strong>
+            <div class="about">iPhone 16</div>
+            <div class="price">₹64,999</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+        <a href="https://amzn.to/49K2tbV" target="_blank" class="affiliate-card">
+          <img src="air.jpg" />
+          <div class="affiliate-content">
+            <strong>Macbook Pro M5</strong>
+            <div class="about">More Powerful</div>
+            <div class="price">₹159,999</div>
+          </div>
+          <div class="buy-btn">Buy</div>
+        </a>
+      </div>
+
+      <footer>
+        © 2026 Chitra<br />
+        I may earn 2-4% commision on your purchase :p
+      </footer>
+    </div>
+
+    <script>
+      const kitties = document.querySelectorAll(".kitty");
+      const safe = document.getElementById("safe-zone").getBoundingClientRect();
+
+      function randomPosition() {
+        let x, y;
+        do {
+          x = Math.random() * (window.innerWidth - 50);
+          y = Math.random() * (window.innerHeight - 50);
+        } while (
+          x > safe.left &&
+          x < safe.right &&
+          y > safe.top &&
+          y < safe.bottom
+        );
+        return { x, y };
+      }
+
+      function moveKitty(kitty) {
+        const { x, y } = randomPosition();
+        kitty.style.left = x + "px";
+        kitty.style.top = y + "px";
+      }
+
+      kitties.forEach((kitty) => {
+        moveKitty(kitty);
+
+        kitty.addEventListener("click", () => {
+          kitty.classList.add("hide");
+          setTimeout(() => {
+            moveKitty(kitty);
+            kitty.classList.remove("hide");
+            kitty.classList.add("show");
+            setTimeout(() => kitty.classList.remove("show"), 320);
+          }, 320);
+        });
+      });
+
+      setInterval(() => {
+        kitties.forEach(moveKitty);
+      }, 4000);
+    </script>
+  </body>
+</html>
